@@ -5,9 +5,9 @@ app = FastAPI()
 
 
 # Get requests
-@app.get('/')
-def home():
-    return {"message": "TaskFlow API is running"}
+# @app.get('/')
+# def home():
+#     return {"message": "TaskFlow API is running"}
 
 
 # @app.get('/health')
@@ -15,81 +15,25 @@ def home():
 #     return {"status": "healthy"}
 
 
-# @app.get('/users')
-# def users():
-#     return {"users": [{"name": "mouse"}, {"name": "cat"}]}
-
-
+# Get All tasks
 @app.get('/tasks')
 def tasks():
-    return {"tasks": tasks}
+    return tasks
 
 
-# Path parameters
-# /tasks/2
+# Get one task
+# /tasks/1
+@app.get("/tasks/{task_id}")
+def get_task(task_id: int):
+    for task in tasks:
+        if task["id"] == task_id:
+            return task
 
-# # Get /tasks/1
-# @app.get('/tasks/{task_id}')
-# def get_task(task_id: int):
-#     tasks_list = {
-#         "tasks": [
-#             {"task1": "learn fastapi"},
-#             {"task2": "learn react"},
-#             {"task3": "learn postgresql"}
-#         ]
-#     }
-#     return {"task_id": tasks_list["tasks"][task_id]}
-
-# # Get /users/mouse
-
-
-# @app.get('/users/{user_name}')
-# def get_user(user_name: str):
-#     users_list = {
-#         "users": [{"name": "mouse", "age": 23}, {"name": "cat", "age": 19}]}
-#     user_to_get = ''
-
-#     for i in users_list["users"]:
-#         if i["name"] == user_name:
-#             user_to_get = i
-#         else:
-#             user_to_get = 'No user found'
-#     return {"username": user_to_get}
-
-
-# # function definiton
-# def greet(name, age):  # name, age --> parameter
-#     # function body
-#     return "hi" + name
-
-
-# # function calling
-# greet('mouse', 23)  # 'mouse' --> argument
-
-
-# Query parameters
-
-# task_name = 'learn react'
-# duration = '1 month'
-
-# Query parameters starts with ? and multiple queries are seperated by &
-
-# http://127.0.0.1:8000/login?username=mouse&password=hello@123&location=guntur
-
-
-# /tasks?task_name=learn%20react&duration=1%20month
-
-# POST
-
-# /tasks?status=done
-# @app.get('/tasks')
-# def get_tasks(status: str | None = None):
-#     return {"status": status}
+    return {"message": "Task not found"}
 
 
 # Task model
 # pydantic
-
 class TaskCreate(BaseModel):
     title: str
     description: str
@@ -98,10 +42,8 @@ class TaskCreate(BaseModel):
 
 tasks = []
 
-# posting some data ----> /tasks ---> tasks = [task1, task2]
-# /tasks?title=react&description=learnreact
 
-
+# Create a new task
 @app.post("/tasks")
 def create_task(task: TaskCreate):
     new_task = {
@@ -115,11 +57,40 @@ def create_task(task: TaskCreate):
 
     return new_task
 
-# @app.post('/login')
-# @app.post('/singup')
-# @app.get('/users')
-# @app.get('/tasks')
-# @app.get('/users/mouse')
-# @app.get('/tasks/{id}')
-# @app.patch('/tasks/{id}')
-# @app.delete('/tasks/{id}')
+
+# PATCH
+class TaskUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    completed: bool | None = None
+
+
+# /tasks/6
+@app.patch("/tasks/{task_id}")
+def update_task(task_id: int, updated_task: TaskUpdate):
+    for task in tasks:
+        if task["id"] == task_id:
+            if updated_task.title is not None:
+                task["title"] = updated_task.title
+
+            if updated_task.description is not None:
+                task["description"] = updated_task.description
+
+            if updated_task.completed is not None:
+                task['completed'] = updated_task.completed
+
+            return task
+
+    return {"message": "Task not found"}
+
+
+# Delete a task
+# /tasks/3
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id: int):
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+            return {"message": "Task deleted"}
+
+    return {"message": "Task not found"}
