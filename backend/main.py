@@ -40,6 +40,7 @@ class TaskCreate(BaseModel):
     completed: bool = False
 
 
+# data doesn't persists
 tasks = []
 
 
