@@ -250,3 +250,52 @@ models.py ---> Mapping tables in postgresql
 FastAPI --> SQLAlchemy --> psycopg --> Postgresql
 
 swagger (http://127.0.0.1:8000/docs) ---> FastAPI ---> sqlalcehmy, psycopg --> postresql
+
+commands ---> linux ---> windows (vscode)
+
+1. Install WSL in windows
+   Create username and password
+
+2. Install postgresql in WSL
+   Create a database called taskflow and password for the database
+
+third party modules - - -> pypi.org - - -> pip install requests - - -> import requests
+built-in modules - - -> import random, import sys
+user-defined modules - -> filename.py - -> import filename
+
+swagger (http://127.0.0.1:8000/docs) ---> FastAPI ---> sqlalcehmy, psycopg --> postresql (windows)
+
+rules - models
+routes - pages
+store in db
+return resources
+
+## <!-- users
+
+name, username, email, password -->
+
+fastAPI (local computer) ---> Postgresql (online database server) NeonDB
+
+## 07-Oct-2026
+
+FastAPI
+↓
+SQLAlchemy
+↓
+psycopg
+↓
+localhost:5432
+↓
+PostgreSQL
+
+FastAPI
+↓
+SQLAlchemy
+↓
+psycopg
+↓
+Internet / SSL
+↓
+Neon PostgreSQL
+
+fastapi ----> neondb
