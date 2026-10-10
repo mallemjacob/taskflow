@@ -274,7 +274,7 @@ return resources
 
 name, username, email, password -->
 
-fastAPI (local computer) ---> Postgresql (online database server) NeonDB
+swagger (local pc) ----> fastAPI (local pc) ---> Postgresql (online database server) NeonDB
 
 ## 07-Oct-2026
 
@@ -299,3 +299,82 @@ Internet / SSL
 Neon PostgreSQL
 
 fastapi ----> neondb
+
+/tasks
+GET
+POST
+PATCH
+DELETE
+
+/users
+GET
+POST
+PATCH
+DELETE
+
+/projects
+GET
+POST
+PATCH
+DELETE
+
+## 08 Oct 2026
+
+Project (Full stack python), 1
+
+----- 1, learn reactjs, front library, false, 1
+----- 2, learn fastapi, backend library, false, 1
+----- 3, learn postgresql, database server, false, 1
+
+## Project
+
+id, name, description
+1, taskflow, full stack python project
+2, taskflow2, full stack python project
+
+models, schema, routes
+
+## Tasks
+
+id, title, description, completed, project_id
+
+1, react, learn reactjs, false, 1
+2, fastapi, learn fastapi, false, 2
+
+neondb
+
+--- tasks
+--- projects
+
+swagger --> FastAPI -->
+
+<!-- Projects
+   task1
+   task2 -->
+
+```JSON
+{
+  "id": 1,
+  "name": "Python Full Stack",
+  "description": "Python full stack project with React, Python, FastAPI, SQLAlchemy, psycopg, Postgresql."
+}
+```
+
+```JSON
+[
+  {
+    "id": 4,
+    "title": "React",
+    "description": "Frontend Javascript UI Library",
+    "completed": false,
+    "project_id": 1
+  },
+  {
+    "id": 5,
+    "title": "FastAPI",
+    "description": "Backend Python Framework",
+    "completed": false,
+    "project_id": 1
+  }
+]
+```
